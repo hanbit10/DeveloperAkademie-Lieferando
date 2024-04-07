@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       header {
+        position: relative;
         background-color: #ffffff;
         height: 70px;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         border-bottom: 1px solid rgb(143, 135, 135, 0.2);
       }
 
       header {
-        padding-left: min(160px, 10%);
-        padding-right: min(160px, 10%);
+        padding-left: min(20px, 10%);
+        padding-right: min(20px, 10%);
       }
 
       .header-logo {
+        position: absolute;
+        left: 0px;
+        padding-left: min(20px, 10%);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -36,6 +40,13 @@
         max-width: 40px;
         max-height: 40px;
         aspect-ratio: 1/1;
+      }
+
+      .flag {
+        position: absolute;
+        right: 0px;
+        padding-right: min(20px, 10%);
+        cursor: pointer;
       }
 
       .nav-menu {
@@ -57,5 +68,7 @@
       <img class="header-img" src="/bitLieferando/assets/icons/bitgramblack.svg" alt="" />
       <div class="header-logo-text">BITRANDO</div>
     </a>
+    <div><span>Speisekarte</span></div>
+    <div class="flag">🇩🇪</div>
   </body>
 </html>
