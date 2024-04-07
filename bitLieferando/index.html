@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js"></script>
+
+    <link rel="icon" href="/bitLieferando/assets/icon1.png" alt="" />
+    <title>bitLieferando</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body onload="render()">
+    <header w3-include-html="/bitLieferando/components/header/header.html"></header>
+
+    <section class="container">
+      <div id="content" class="content"></div>
+    </section>
+    <footer w3-include-html="/bitLieferando/components/footer/footer.html"></footer>
+    <script>
+      includeHTML();
+    </script>
+  </body>
+</html>
