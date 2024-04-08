@@ -33,11 +33,20 @@ let menus = [
     price: "9.50",
     description: ["Stir-fried glass noodles with vegetables and meat", "Sweet and savory dish seasoned with soy sauce and sesame oil"],
   },
-
   {
     food: "Bibimbap",
     price: "10.50",
     description: ["Mixed rice dish with assorted vegetables and meat", "Topped with a fried egg and spicy gochujang sauce"],
+  },
+  {
+    food: "Kimchi jjigae",
+    price: "12.99",
+    description: ["Spicy kimchi stew with pork or tofu", "Comforting and full of flavor"],
+  },
+  {
+    food: "Galbitang",
+    price: "12.99",
+    description: ["Clear beef short rib soup", "Simmered with radish and Korean herbs"],
   },
   {
     food: "Mandu",
@@ -74,18 +83,6 @@ let menus = [
     price: "4.00",
     description: ["Deep-fried breaded mozzarella cheese sticks", "Served with marinara sauce"],
   },
-
-  {
-    food: "Kimchi jjigae",
-    price: "8.99",
-    description: ["Spicy kimchi stew with pork or tofu", "Comforting and full of flavor"],
-  },
-  {
-    food: "Galbitang",
-    price: "12.99",
-    description: ["Clear beef short rib soup", "Simmered with radish and Korean herbs"],
-  },
-
   {
     food: "Soda",
     price: "2.50",
@@ -149,11 +146,24 @@ let selects = {
 
 function render() {
   renderFavorite();
+  renderMenu();
+  renderSoup();
 }
 
 function getId(el) {
   let element = document.getElementById(el);
   return element;
+}
+
+function getMenuData(index) {
+  let menu = menus[index];
+  return /*html*/ `
+  <div class="dish-menu">
+    <div class="dish-menu-title"> ${menu["food"]} </div>
+    <span class="dish-menu-desc"> ${menu["description"]} </span>
+    <div class="dish-menu-price"> ${menu["price"]} € </div>
+    <div class="dish-menu-add">+</div>
+  </div>`;
 }
 
 function renderFavorite() {
@@ -165,13 +175,30 @@ function renderFavorite() {
 }
 
 function getFavorite(index) {
-  let menu = menus[index];
-  return /*html*/ `
-  <div class="dish-menu">
-    <div class="dish-menu-title"> ${menu["food"]} </div>
-    <span class="dish-menu-desc"> ${menu["description"]} </span>
-    <div class="dish-menu-price"> ${menu["price"]} € </div>
-    <div class="dish-menu-add">+</div>
-  </div>
-  `;
+  let menu = getMenuData(index);
+  return menu;
+}
+
+function renderMenu() {
+  let element = getId("getMenu");
+  for (let i = 0; i < 5; i++) {
+    element.innerHTML += getMenu(i);
+  }
+}
+
+function getMenu(index) {
+  let menu = getMenuData(index);
+  return menu;
+}
+
+function renderSoup() {
+  let element = getId("getSoup");
+  for (let i = 5; i < 7; i++) {
+    element.innerHTML += getSoup(i);
+  }
+}
+
+function getSoup(index) {
+  let menu = getMenuData(index);
+  return menu;
 }
