@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .wrapper {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .main,
+      .sidebar {
+        border: 3px solid black;
+        padding: 15px;
+        background-color: #fff;
+      }
+
+      .main {
+        width: 60%;
+        height: 150vh;
+      }
+
+      .sidebar {
+        width: 25%;
+        height: 25vh;
+      }
+
+      .sidebar {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+      }
+
+      body {
+        background-color: #ccc;
+        font-family: sans-serif;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="main">Main content</div>
+      <div class="sidebar">Sticky sidebar</div>
+    </div>
+  </body>
+</html>

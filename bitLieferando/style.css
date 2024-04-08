@@ -23,11 +23,6 @@ body {
   display: none;
 }
 
-.container {
-  min-height: 100vh;
-  background-color: rgb(232, 232, 232);
-}
-
 .no-select {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -40,6 +35,54 @@ body {
 
 .no-select:focus {
   outline: none !important;
+}
+
+.container {
+  display: flex;
+
+  min-height: 100vh;
+  background-color: rgb(232, 232, 232);
+}
+
+section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  background-color: aqua;
+  height: 80px;
+}
+
+.title-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.dish-img {
+  width: 100%;
+  max-width: 1200px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.main-content {
+  width: 100%;
+}
+
+.calc-content {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100vh;
+  background-color: antiquewhite;
 }
 
 .content {
