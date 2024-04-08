@@ -64,17 +64,23 @@ nav {
   z-index: 300;
   top: 0;
   background-color: #ffffff;
-  height: 70px;
+
   border-bottom: 0.1px solid rgb(143, 135, 135, 0.2);
   display: flex;
   justify-content: center;
 }
 
-.nav-content {
+.nav-container {
   width: 100%;
   max-width: 960px;
+}
+
+.nav-content {
   display: flex;
   align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 70px;
 }
 
 .nav-links {
