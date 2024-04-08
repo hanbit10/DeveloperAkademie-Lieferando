@@ -24,14 +24,14 @@ let menus = [
     description: ["Spicy vegetable and seafood soup", "Made with gochujang (Korean chili paste)"],
   },
   {
-    food: "Tteokbokki",
-    price: "6.99",
-    description: ["Spicy stir-fried rice cakes", "Topped with fish cakes and boiled eggs"],
-  },
-  {
     food: "Japchae",
     price: "9.50",
     description: ["Stir-fried glass noodles with vegetables and meat", "Sweet and savory dish seasoned with soy sauce and sesame oil"],
+  },
+  {
+    food: "Dakgalbi",
+    price: "12.99",
+    description: ["Spicy stir-fried chicken with vegetables and rice cakes", "Served on a hot plate"],
   },
   {
     food: "Bibimbap",
@@ -49,6 +49,41 @@ let menus = [
     description: ["Clear beef short rib soup", "Simmered with radish and Korean herbs"],
   },
   {
+    food: "Samgyetang",
+    price: "12.99",
+    description: ["Ginseng chicken soup", "Nutritious and revitalizing, with whole chicken and ginseng"],
+  },
+  {
+    food: "Seolleongtang",
+    price: "10.50",
+    description: ["Milky beef bone soup", "Slow-simmered for hours, served with rice and scallions"],
+  },
+  {
+    food: "Sundubu Jjigae",
+    price: "9.50",
+    description: ["Soft tofu stew", "Spicy and comforting, with tofu, vegetables, and seafood"],
+  },
+  {
+    food: "Kimchi",
+    price: "3.50",
+    description: ["Fermented spicy cabbage", "A staple in Korean cuisine"],
+  },
+  {
+    food: "Korean Pancakes (Jeon)",
+    price: "4.50",
+    description: ["Assorted savory pancakes", "Made with various ingredients like seafood, vegetables, or kimchi"],
+  },
+  {
+    food: "Korean Egg Rolls (Gyeran Mari)",
+    price: "4.50",
+    description: ["Rolled omelette with vegetables", "Sliced and served as a side dish or snack"],
+  },
+  {
+    food: "Tteokbokki",
+    price: "6.99",
+    description: ["Spicy stir-fried rice cakes", "Topped with fish cakes and boiled eggs"],
+  },
+  {
     food: "Mandu",
     price: "7.50",
     description: ["Korean dumplings filled with meat and vegetables", "Steamed or fried options available"],
@@ -57,11 +92,6 @@ let menus = [
     food: "Fried Shrimps",
     price: "4.99",
     description: ["Golden fried shrimps served with dipping sauce", "Succulent and crunchy"],
-  },
-  {
-    food: "French Fries",
-    price: "2.99",
-    description: ["Crispy golden fries", "Served with ketchup"],
   },
   {
     food: "Onion Rings",
@@ -80,7 +110,7 @@ let menus = [
   },
   {
     food: "Mozzarella Sticks",
-    price: "4.00",
+    price: "4.99",
     description: ["Deep-fried breaded mozzarella cheese sticks", "Served with marinara sauce"],
   },
   {
@@ -148,6 +178,9 @@ function render() {
   renderFavorite();
   renderMenu();
   renderSoup();
+  renderSideMenu();
+  renderFries();
+  renderDrinks();
 }
 
 function getId(el) {
@@ -193,12 +226,48 @@ function getMenu(index) {
 
 function renderSoup() {
   let element = getId("getSoup");
-  for (let i = 5; i < 7; i++) {
+  for (let i = 5; i < 10; i++) {
     element.innerHTML += getSoup(i);
   }
 }
 
 function getSoup(index) {
+  let menu = getMenuData(index);
+  return menu;
+}
+
+function renderSideMenu() {
+  let element = getId("getSideMenu");
+  for (let i = 10; i < 15; i++) {
+    element.innerHTML += getSideMenu(i);
+  }
+}
+
+function getSideMenu(index) {
+  let menu = getMenuData(index);
+  return menu;
+}
+
+function renderFries() {
+  let element = getId("getFries");
+  for (let i = 15; i < 20; i++) {
+    element.innerHTML += getFries(i);
+  }
+}
+
+function getFries(index) {
+  let menu = getMenuData(index);
+  return menu;
+}
+
+function renderDrinks() {
+  let element = getId("getDrinks");
+  for (let i = 20; i < menus.length; i++) {
+    element.innerHTML += getDrinks(i);
+  }
+}
+
+function getDrinks(index) {
   let menu = getMenuData(index);
   return menu;
 }
