@@ -1,0 +1,18 @@
+{
+  "edit": ["Less spicy", "More spicy", "Less salt", "More salt", "Onions", "Garlic", "Mushrooms", "Cheese"],
+  "sauce": [
+    "Spicy sauce",
+    "Garlic sauce",
+    "Soy sauce",
+    "Sweet chili sauce",
+    "Teriyaki sauce",
+    "Barbecue sauce",
+    "Peanut sauce",
+    "Honey mustard",
+    "Tzatziki sauce",
+    "Chipotle mayo",
+    "Ranch dressing",
+    "Sriracha sauce",
+    "Wasabi mayo"
+  ]
+}
