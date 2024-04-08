@@ -58,13 +58,10 @@ section {
   align-items: center;
 }
 
-.title-section {
-  background-color: #ffffff;
-}
-
 nav {
   width: 100%;
   position: sticky;
+  z-index: 300;
   top: 0;
   background-color: #ffffff;
   height: 70px;
@@ -75,7 +72,7 @@ nav {
 
 .nav-content {
   width: 100%;
-  max-width: 1200px;
+  max-width: 960px;
   display: flex;
   align-items: center;
 }
@@ -89,15 +86,38 @@ nav {
   margin-right: 16px;
 }
 
+.nav-links-fav {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  padding: 8px;
+  border-radius: 20px;
+  font-weight: bold;
+  margin-right: 16px;
+  background-color: black;
+}
+
+.nav-links-fav:hover {
+  background-color: #202020;
+}
+
 .nav-links:hover {
   background-color: #e8e8e8;
 }
 
+.title-section {
+  background-color: #ffffff;
+  width: 100%;
+}
+
 .title-content {
   width: 100%;
-  max-width: 1200px;
+  max-width: 960px;
+}
+
+.title-element {
   padding-bottom: 16px;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 .title-img {
@@ -157,7 +177,7 @@ nav {
 
 .dish-img {
   width: 100%;
-  max-width: 1200px;
+  max-width: 960px;
   height: 300px;
   object-fit: cover;
 }
@@ -170,12 +190,71 @@ nav {
   width: 100%;
 }
 
+.dish-section {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dish-element {
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: antiquewhite;
+}
+
+.dish-menu {
+  position: relative;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: rgb(255, 255, 255);
+  padding: 12px;
+  margin: 16px 0px 16px 0px;
+  border-radius: 15px;
+  border: 1px solid #c9c9c9;
+  cursor: pointer;
+}
+
+.dish-menu:hover {
+  background-color: #e2e2e2;
+}
+
+.dish-menu-title {
+  font-weight: bold;
+}
+
+.dish-menu-desc {
+  font-size: 0.8rem;
+}
+
+.dish-menu-price {
+  font-weight: bold;
+}
+
+.dish-menu-add {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 40px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #e2e2e2;
+}
+
 .calc-content {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
   right: 0;
-  z-index: 200;
+  z-index: 300;
   width: 400px;
   height: 100vh;
   background-color: #ffffff;

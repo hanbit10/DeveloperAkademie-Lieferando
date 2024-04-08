@@ -12,7 +12,7 @@ async function includeHTML() {
   }
 }
 
-let menu = [
+let menus = [
   {
     food: "Bulgogi",
     price: "10.99",
@@ -46,7 +46,7 @@ let menu = [
   },
   {
     food: "Fried Shrimps",
-    price: "11.99",
+    price: "4.99",
     description: ["Golden fried shrimps served with dipping sauce", "Succulent and crunchy"],
   },
   {
@@ -128,7 +128,7 @@ let menu = [
   },
 ];
 
-let select = {
+let selects = {
   edit: ["Less spicy", "More spicy", "Less salt", "More salt", "Onions", "Garlic", "Mushrooms", "Cheese"],
   sauce: [
     "Spicy sauce",
@@ -147,4 +147,31 @@ let select = {
   ],
 };
 
-function render() {}
+function render() {
+  renderFavorite();
+}
+
+function getId(el) {
+  let element = document.getElementById(el);
+  return element;
+}
+
+function renderFavorite() {
+  let element = getId("getFavorite");
+  let index = [0, 1, 4, 5, 6];
+  for (let i = 0; i < index.length; i++) {
+    element.innerHTML += getFavorite(index[i]);
+  }
+}
+
+function getFavorite(index) {
+  let menu = menus[index];
+  return /*html*/ `
+  <div class="dish-menu">
+    <div class="dish-menu-title"> ${menu["food"]} </div>
+    <span class="dish-menu-desc"> ${menu["description"]} </span>
+    <div class="dish-menu-price"> ${menu["price"]} € </div>
+    <div class="dish-menu-add">+</div>
+  </div>
+  `;
+}
