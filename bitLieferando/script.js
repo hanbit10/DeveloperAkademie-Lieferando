@@ -220,32 +220,23 @@ function addBasket(getFood) {
     price: menu["price"],
     amount: 1,
   };
+  let fIndex = baskets.findIndex((e) => e.food === obj["food"]);
+  let consist = baskets.some((e) => e.food === obj["food"]);
 
   if (amount >= 20) {
     alert("Yout can't order anymore");
-  } else {
-    if (baskets.length == 0) {
-      baskets.push(obj);
-      amount++;
+  } else if (consist) {
+    if (baskets[fIndex]["amount"] >= 5) {
+      alert("You can't order more than 5 same dish!");
     } else {
-      let fIndex = baskets.findIndex((e) => e.food === obj["food"]);
-      let consist = baskets.some((e) => e.food === obj["food"]);
-      if (consist) {
-        if (baskets[fIndex]["amount"] >= 5) {
-          alert("You can't order anymore!");
-        } else {
-          baskets[fIndex]["amount"] += 1;
-          amount++;
-        }
-      } else {
-        if (baskets.length >= 6) {
-          alert("You can't order anymore!");
-        } else {
-          baskets.push(obj);
-          amount++;
-        }
-      }
+      baskets[fIndex]["amount"] += 1;
+      amount++;
     }
+  } else if (baskets.length >= 6) {
+    alert("You can't order more of other dish!");
+  } else {
+    baskets.push(obj);
+    amount++;
   }
 
   saveBaskets();
@@ -268,19 +259,27 @@ function renderBaskets() {
   }
 
   if (baskets.length == 0) {
-    element.innerHTML = /*html*/ `
-      <div class="calc-total-item">
-        <img class="calc-img" src="/bitLieferando/assets/icons/bag-shopping-solid.svg" alt="">
-        <h2>Fill out the basket</h2>
-        <div>You basket is empty</div>
-      </div> `;
+    element.innerHTML = getEmptyBasket();
   } else {
-    element.innerHTML += /*html*/ `
-    <div class="calc-total-item">
-      <div class="calc-total">Total price ${price.toFixed(2)} €</div> 
-      <div onclick="getCheckout()" class="calc-checkout">Checkout ${price.toFixed(2)} €</div>
-    </div> `;
+    element.innerHTML += getTotalBasket(price.toFixed(2));
   }
+}
+
+function getEmptyBasket() {
+  return /*html*/ `
+  <div class="calc-total-item">
+    <img class="calc-img" src="/bitLieferando/assets/icons/bag-shopping-solid.svg" alt="">
+    <h2>Fill out the basket</h2>
+    <div>You basket is empty</div>
+  </div> `;
+}
+
+function getTotalBasket(price) {
+  return /*html*/ `
+  <div class="calc-total-item">
+    <div class="calc-total">Total price ${price} €</div> 
+    <div onclick="getCheckout()" class="calc-checkout">Checkout ${price} €</div>
+  </div> `;
 }
 
 function getCheckout() {
