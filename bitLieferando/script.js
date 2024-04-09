@@ -174,13 +174,25 @@ let selects = {
   ],
 };
 
+let baskets = [];
+let amount = 0;
+
 function render() {
+  if (localStorage.getItem("baskets") !== null) {
+    getBaskets();
+  }
+
+  if (localStorage.getItem("amount") !== null) {
+    getAmount();
+  }
+
   renderFavorite();
   renderMenu();
   renderSoup();
   renderSideMenu();
   renderFries();
   renderDrinks();
+  renderBaskets();
 }
 
 function getId(el) {
@@ -190,8 +202,9 @@ function getId(el) {
 
 function getMenuData(index) {
   let menu = menus[index];
+  let food = menu["food"];
   return /*html*/ `
-  <div class="dish-menu">
+  <div onclick='addBasket("${food}")' class="dish-menu">
     <div class="dish-menu-title"> ${menu["food"]} </div>
     <span class="dish-menu-desc"> ${menu["description"]} </span>
     <div class="dish-menu-price"> ${menu["price"]} € </div>
@@ -199,8 +212,138 @@ function getMenuData(index) {
   </div>`;
 }
 
+function addBasket(getFood) {
+  let mIndex = menus.findIndex((e) => e.food === getFood);
+  let menu = menus[mIndex];
+  let obj = {
+    food: menu["food"],
+    price: menu["price"],
+    amount: 1,
+  };
+
+  if (amount >= 20) {
+    alert("Yout can't order anymore");
+  } else {
+    if (baskets.length == 0) {
+      baskets.push(obj);
+      amount++;
+    } else {
+      let fIndex = baskets.findIndex((e) => e.food === obj["food"]);
+      let consist = baskets.some((e) => e.food === obj["food"]);
+      if (consist) {
+        if (baskets[fIndex]["amount"] >= 5) {
+          alert("You can't order anymore!");
+        } else {
+          baskets[fIndex]["amount"] += 1;
+          amount++;
+        }
+      } else {
+        if (baskets.length >= 6) {
+          alert("You can't order anymore!");
+        } else {
+          baskets.push(obj);
+          amount++;
+        }
+      }
+    }
+  }
+
+  saveBaskets();
+  saveAmount();
+  render();
+}
+
+function renderBaskets() {
+  let element = getId("calcElement");
+  element.innerHTML = "";
+  let price = 0;
+  let eachPrice = 0;
+
+  for (let i = 0; i < baskets.length; i++) {
+    let basket = baskets[i];
+    let food = basket["food"];
+    price += +basket["price"] * basket["amount"];
+    eachPrice = +basket["price"] * basket["amount"];
+    element.innerHTML += getCalc(i, food, eachPrice);
+  }
+
+  if (baskets.length == 0) {
+    element.innerHTML = /*html*/ `
+      <div class="calc-total-item">
+        <img class="calc-img" src="/bitLieferando/assets/icons/bag-shopping-solid.svg" alt="">
+        <h2>Fill out the basket</h2>
+        <div>You basket is empty</div>
+      </div> `;
+  } else {
+    element.innerHTML += /*html*/ `
+    <div class="calc-total-item">
+      <div class="calc-total">Total price ${price.toFixed(2)} €</div> 
+      <div onclick="getCheckout()" class="calc-checkout">Checkout ${price.toFixed(2)} €</div>
+    </div> `;
+  }
+}
+
+function getCheckout() {
+  alert("Test checkout is proceed");
+  baskets = [];
+  amount = 0;
+  saveBaskets();
+  saveAmount();
+  render();
+}
+
+function getCalc(index, food, eachPrice) {
+  let basket = baskets[index];
+  return /*html*/ `
+  <div class="calc-box">
+    <div class="calc-food-item">
+      <span class="calc-food"> ${basket["food"]} </span>
+      <span class="calc-price"> ${eachPrice} € </span>  
+    </div>
+    <div class="calc-amount">
+      <div class="calc-btn" onclick='removeBasket("${food}")'>-</div>
+        <span>${basket["amount"]}</span>
+      <div class="calc-btn" onclick='addBasket("${food}")'>+</div>
+    </div>
+  </div> `;
+}
+
+function removeBasket(getFood) {
+  let fIndex = baskets.findIndex((e) => e.food === getFood);
+  let basket = baskets[fIndex];
+  if (basket["amount"] > 0) {
+    basket["amount"] = +basket["amount"] - 1;
+    amount--;
+  }
+  if (basket["amount"] == 0) {
+    baskets.splice(fIndex, 1);
+  }
+  saveBaskets();
+  saveAmount();
+  render();
+}
+
+function saveBaskets() {
+  localStorage.setItem("baskets", JSON.stringify(baskets));
+}
+
+function saveAmount() {
+  localStorage.setItem("amount", JSON.stringify(amount));
+}
+
+function getAmount() {
+  const item = localStorage.getItem("amount");
+  amount = +item;
+}
+
+function getBaskets() {
+  const item = localStorage.getItem("baskets");
+  baskets = JSON.parse(item);
+}
+
 function renderFavorite() {
   let element = getId("getFavorite");
+  element.innerHTML = "";
   let index = [0, 1, 4, 5, 6];
   for (let i = 0; i < index.length; i++) {
     element.innerHTML += getFavorite(index[i]);
@@ -214,6 +357,7 @@ function getFavorite(index) {
 
 function renderMenu() {
   let element = getId("getMenu");
+  element.innerHTML = "";
   for (let i = 0; i < 5; i++) {
     element.innerHTML += getMenu(i);
   }
@@ -226,6 +370,7 @@ function getMenu(index) {
 
 function renderSoup() {
   let element = getId("getSoup");
+  element.innerHTML = "";
   for (let i = 5; i < 10; i++) {
     element.innerHTML += getSoup(i);
   }
@@ -238,6 +383,7 @@ function getSoup(index) {
 
 function renderSideMenu() {
   let element = getId("getSideMenu");
+  element.innerHTML = "";
   for (let i = 10; i < 15; i++) {
     element.innerHTML += getSideMenu(i);
   }
@@ -250,6 +396,7 @@ function getSideMenu(index) {
 
 function renderFries() {
   let element = getId("getFries");
+  element.innerHTML = "";
   for (let i = 15; i < 20; i++) {
     element.innerHTML += getFries(i);
   }
@@ -262,6 +409,7 @@ function getFries(index) {
 
 function renderDrinks() {
   let element = getId("getDrinks");
+  element.innerHTML = "";
   for (let i = 20; i < menus.length; i++) {
     element.innerHTML += getDrinks(i);
   }
