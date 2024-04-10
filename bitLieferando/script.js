@@ -12,161 +12,24 @@ async function includeHTML() {
   }
 }
 
-let menus = [
-  {
-    food: "Bulgogi",
-    price: "10.99",
-    description: ["Marinated beef grilled to perfection", "Served with rice and lettuce wraps"],
-  },
-  {
-    food: "Jaejuk",
-    price: "8.50",
-    description: ["Spicy vegetable and seafood soup", "Made with gochujang (Korean chili paste)"],
-  },
-  {
-    food: "Japchae",
-    price: "9.50",
-    description: ["Stir-fried glass noodles with vegetables and meat", "Sweet and savory dish seasoned with soy sauce and sesame oil"],
-  },
-  {
-    food: "Dakgalbi",
-    price: "12.99",
-    description: ["Spicy stir-fried chicken with vegetables and rice cakes", "Served on a hot plate"],
-  },
-  {
-    food: "Bibimbap",
-    price: "10.50",
-    description: ["Mixed rice dish with assorted vegetables and meat", "Topped with a fried egg and spicy gochujang sauce"],
-  },
-  {
-    food: "Kimchi jjigae",
-    price: "12.99",
-    description: ["Spicy kimchi stew with pork or tofu", "Comforting and full of flavor"],
-  },
-  {
-    food: "Galbitang",
-    price: "12.99",
-    description: ["Clear beef short rib soup", "Simmered with radish and Korean herbs"],
-  },
-  {
-    food: "Samgyetang",
-    price: "12.99",
-    description: ["Ginseng chicken soup", "Nutritious and revitalizing, with whole chicken and ginseng"],
-  },
-  {
-    food: "Seolleongtang",
-    price: "10.50",
-    description: ["Milky beef bone soup", "Slow-simmered for hours, served with rice and scallions"],
-  },
-  {
-    food: "Sundubu Jjigae",
-    price: "9.50",
-    description: ["Soft tofu stew", "Spicy and comforting, with tofu, vegetables, and seafood"],
-  },
-  {
-    food: "Kimchi",
-    price: "3.50",
-    description: ["Fermented spicy cabbage", "A staple in Korean cuisine"],
-  },
-  {
-    food: "Korean Pancakes (Jeon)",
-    price: "4.50",
-    description: ["Assorted savory pancakes", "Made with various ingredients like seafood, vegetables, or kimchi"],
-  },
-  {
-    food: "Korean Egg Rolls (Gyeran Mari)",
-    price: "4.50",
-    description: ["Rolled omelette with vegetables", "Sliced and served as a side dish or snack"],
-  },
-  {
-    food: "Tteokbokki",
-    price: "6.99",
-    description: ["Spicy stir-fried rice cakes", "Topped with fish cakes and boiled eggs"],
-  },
-  {
-    food: "Mandu",
-    price: "7.50",
-    description: ["Korean dumplings filled with meat and vegetables", "Steamed or fried options available"],
-  },
-  {
-    food: "Fried Shrimps",
-    price: "4.99",
-    description: ["Golden fried shrimps served with dipping sauce", "Succulent and crunchy"],
-  },
-  {
-    food: "Onion Rings",
-    price: "3.50",
-    description: ["Deep-fried battered onion rings", "Crunchy and delicious"],
-  },
-  {
-    food: "Fried Chicken Wings",
-    price: "4.99",
-    description: ["Spicy or barbecue-flavored wings", "Served with ranch dressing"],
-  },
-  {
-    food: "Chicken Tenders",
-    price: "5.50",
-    description: ["Crispy breaded chicken tenders", "Perfect for dipping in honey mustard sauce"],
-  },
-  {
-    food: "Mozzarella Sticks",
-    price: "4.99",
-    description: ["Deep-fried breaded mozzarella cheese sticks", "Served with marinara sauce"],
-  },
-  {
-    food: "Soda",
-    price: "2.50",
-    description: ["Refreshing carbonated drink", "1 litre"],
-  },
-  {
-    food: "Iced Tea",
-    price: "3.00",
-    description: ["Cold brewed tea served over ice", "1 litre"],
-  },
-  {
-    food: "Fruit Punch",
-    price: "3.50",
-    description: ["Tropical fruit blend", "1 litre"],
-  },
-  {
-    food: "Lemonade",
-    price: "3.00",
-    description: ["Freshly squeezed lemonade", "1 litre"],
-  },
-  {
-    food: "Orange Juice",
-    price: "3.50",
-    description: ["Freshly squeezed orange juice", "1 litre"],
-  },
-  {
-    food: "Apple Juice",
-    price: "3.50",
-    description: ["100% pure apple juice", "1 litre"],
-  },
-  {
-    food: "Cranberry Juice",
-    price: "3.50",
-    description: ["Tart and refreshing", "1 litre"],
-  },
-  {
-    food: "Coconut Water",
-    price: "4.00",
-    description: ["Natural electrolytes", "1 litre"],
-  },
-];
+let menus = [];
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "/bitLieferando/assets/data/menu.json", true);
+xhr.responseType = "json";
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    var data = xhr.response;
+    menus = data;
+  }
+};
+xhr.send();
 
 let baskets = [];
 let amount = 0;
 
 function render() {
-  if (localStorage.getItem("baskets") !== null) {
-    getBaskets();
-  }
-
-  if (localStorage.getItem("amount") !== null) {
-    getAmount();
-  }
-
+  getLocalStorageItems();
   renderFavorite();
   renderMenu();
   renderSoup();
@@ -179,6 +42,16 @@ function render() {
 function getId(el) {
   let element = document.getElementById(el);
   return element;
+}
+
+function getLocalStorageItems() {
+  if (localStorage.getItem("baskets") !== null) {
+    getBaskets();
+  }
+
+  if (localStorage.getItem("amount") !== null) {
+    getAmount();
+  }
 }
 
 function getMenuData(index) {
@@ -196,11 +69,7 @@ function getMenuData(index) {
 function addBasket(getFood) {
   let mIndex = menus.findIndex((e) => e.food === getFood);
   let menu = menus[mIndex];
-  let obj = {
-    food: menu["food"],
-    price: menu["price"],
-    amount: 1,
-  };
+  let obj = getObj(menu);
   let fIndex = baskets.findIndex((e) => e.food === obj["food"]);
   let consist = baskets.some((e) => e.food === obj["food"]);
 
@@ -223,6 +92,15 @@ function addBasket(getFood) {
   saveBaskets();
   saveAmount();
   render();
+}
+
+function getObj(menu) {
+  let obj = {
+    food: menu["food"],
+    price: menu["price"],
+    amount: 1,
+  };
+  return obj;
 }
 
 function renderBaskets() {
@@ -317,10 +195,12 @@ function closeBasket() {
 function removeBasket(getFood) {
   let fIndex = baskets.findIndex((e) => e.food === getFood);
   let basket = baskets[fIndex];
-  if (basket["amount"] > 0) {
+  if (basket["amount"] >= 1) {
     basket["amount"] = +basket["amount"] - 1;
     amount--;
-  } else if (basket["amount"] == 0) {
+  }
+
+  if (basket["amount"] == 0) {
     baskets.splice(fIndex, 1);
   }
   saveBaskets();
