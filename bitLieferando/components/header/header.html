@@ -60,6 +60,12 @@
         border-radius: 50%;
         /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
       }
+
+      @media screen and (max-width: 767px) {
+        .header-text {
+          display: none;
+        }
+      }
     </style>
     <title>Document</title>
   </head>
@@ -68,7 +74,7 @@
       <img class="header-img" src="/bitLieferando/assets/icons/bitgramblack.svg" alt="" />
       <div class="header-logo-text">BITRANDO</div>
     </a>
-    <div><span>Speisekarte</span></div>
+    <div><span class="header-text">Speisekarte</span></div>
     <div class="flag">🇩🇪</div>
   </body>
 </html>

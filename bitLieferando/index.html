@@ -42,10 +42,10 @@
         </section>
         <nav id="navBar">
           <div class="nav-container">
-            <div class="nav-content">
-              <div>
-                <a class="nav-links-fav" href="#favoriteDishContent">Favorite ❤️</a>
-              </div>
+            <div class="nav-element">
+              <button class="nav-fav">
+                <a class="nav-link-fav" href="#favoriteDishContent">Favorite ❤️</a>
+              </button>
               <div>
                 <a class="nav-links" href="#mainDishContent">Menu</a>
               </div>
@@ -66,51 +66,51 @@
         </nav>
         <section id="favoriteDishContent" class="dish-section">
           <div class="dish-container">
-            <div class="dish-content">
+            <div class="dish-element">
               <h2>Favorite ❤️</h2>
               <div id="getFavorite"></div>
             </div>
           </div>
         </section>
-        <section id="mainDishContent" class="dish-content">
+        <section id="mainDishContent" class="dish-section">
           <div class="dish-container">
-            <div class="dish-content">
+            <div class="dish-element">
               <img class="dish-img" src="/bitLieferando/assets/imgs/main.jpg" alt="" />
               <h2>Menu</h2>
               <div id="getMenu"></div>
             </div>
           </div>
         </section>
-        <section id="mainDishContent2" class="dish-content">
+        <section id="mainDishContent2" class="dish-section">
           <div class="dish-container">
-            <div class="dish-content">
+            <div class="dish-element">
               <img class="dish-img" src="/bitLieferando/assets/imgs/tang.jpg" alt="" />
               <h2>Soup</h2>
               <div id="getSoup"></div>
             </div>
           </div>
         </section>
-        <section id="sideDishContent" class="dish-content">
+        <section id="sideDishContent" class="dish-section">
           <div class="dish-container">
-            <div class="dish-content">
+            <div class="dish-element">
               <img class="dish-img" src="/bitLieferando/assets/imgs/sidedish.jpg" alt="" />
               <h2>Side Menu</h2>
               <div id="getSideMenu"></div>
             </div>
           </div>
         </section>
-        <section id="sideDishContent2" class="dish-content">
+        <section id="sideDishContent2" class="dish-section">
           <div class="dish-container">
-            <div class="dish-content">
+            <div class="dish-element">
               <img class="dish-img" src="/bitLieferando/assets/imgs/fried.jpg" alt="" />
               <h2>Fries</h2>
               <div id="getFries"></div>
             </div>
           </div>
         </section>
-        <section id="sideDishContent3" class="dish-content">
+        <section id="sideDishContent3" class="dish-section">
           <div class="dish-container">
-            <div class="dish-content">
+            <div class="dish-element">
               <img class="dish-img" src="/bitLieferando/assets/imgs/drinks.jpg" alt="" />
               <h2>Drinks</h2>
               <div id="getDrinks"></div>
@@ -119,12 +119,17 @@
         </section>
       </div>
 
-      <div class="calc-content">
-        <h2>Basket</h2>
-        <section id="calcElement" class="calc-element">
-          <div id="checkout"></div>
-        </section>
+      <div id="calcContent" class="calc-content tablet-d-none">
+        <div class="row jc-sb">
+          <h2 class="calc-title">Basket</h2>
+          <h2 class="close-btn" onclick="closeBasket()">x</h2>
+        </div>
+
+        <section id="calcElement" class="calc-element"></section>
+        <section id="calcTotal" class="calc-total"></section>
       </div>
+
+      <div id="calcBasket" class="calc-basket"></div>
     </div>
     <footer w3-include-html="/bitLieferando/components/footer/footer.html"></footer>
     <script>

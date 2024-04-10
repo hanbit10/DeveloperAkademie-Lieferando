@@ -155,25 +155,6 @@ let menus = [
   },
 ];
 
-let selects = {
-  edit: ["Less spicy", "More spicy", "Less salt", "More salt", "Onions", "Garlic", "Mushrooms", "Cheese"],
-  sauce: [
-    "Spicy sauce",
-    "Garlic sauce",
-    "Soy sauce",
-    "Sweet chili sauce",
-    "Teriyaki sauce",
-    "Barbecue sauce",
-    "Peanut sauce",
-    "Honey mustard",
-    "Tzatziki sauce",
-    "Chipotle mayo",
-    "Ranch dressing",
-    "Sriracha sauce",
-    "Wasabi mayo",
-  ],
-};
-
 let baskets = [];
 let amount = 0;
 
@@ -232,7 +213,7 @@ function addBasket(getFood) {
       baskets[fIndex]["amount"] += 1;
       amount++;
     }
-  } else if (baskets.length >= 6) {
+  } else if (baskets.length >= 8) {
     alert("You can't order more of other dish!");
   } else {
     baskets.push(obj);
@@ -246,7 +227,11 @@ function addBasket(getFood) {
 
 function renderBaskets() {
   let element = getId("calcElement");
+  let element2 = getId("calcTotal");
+  let element3 = getId("calcBasket");
   element.innerHTML = "";
+  element2.innerHTML = "";
+  element3.innerHTML = "";
   let price = 0;
   let eachPrice = 0;
 
@@ -259,9 +244,14 @@ function renderBaskets() {
   }
 
   if (baskets.length == 0) {
-    element.innerHTML = getEmptyBasket();
+    element2.innerHTML = getEmptyBasket();
+    element3.classList.add("tablet-d-none");
+    element.classList.add("tablet-d-none");
   } else {
-    element.innerHTML += getTotalBasket(price.toFixed(2));
+    element2.innerHTML += getTotalBasket(price.toFixed(2));
+    element3.innerHTML = getCalcBasket(price.toFixed(2));
+    element.classList.remove("tablet-d-none");
+    element3.classList.remove("tablet-d-none");
   }
 }
 
@@ -301,10 +291,27 @@ function getCalc(index, food, eachPrice) {
     </div>
     <div class="calc-amount">
       <div class="calc-btn" onclick='removeBasket("${food}")'>-</div>
-        <span>${basket["amount"]}</span>
+        <span class="calc-btn-amount">${basket["amount"]}</span>
       <div class="calc-btn" onclick='addBasket("${food}")'>+</div>
     </div>
   </div> `;
+}
+
+function getCalcBasket(price) {
+  return /*html*/ `
+  <div class="calc-total-item">
+    <div onclick="openBasket()" class="calc-basket-btn"> (${amount}) Basket ${price} €</div> 
+  </div> `;
+}
+
+function openBasket() {
+  let element = getId("calcContent");
+  element.classList.remove("tablet-d-none");
+}
+
+function closeBasket() {
+  let element = getId("calcContent");
+  element.classList.add("tablet-d-none");
 }
 
 function removeBasket(getFood) {
@@ -313,8 +320,7 @@ function removeBasket(getFood) {
   if (basket["amount"] > 0) {
     basket["amount"] = +basket["amount"] - 1;
     amount--;
-  }
-  if (basket["amount"] == 0) {
+  } else if (basket["amount"] == 0) {
     baskets.splice(fIndex, 1);
   }
   saveBaskets();
