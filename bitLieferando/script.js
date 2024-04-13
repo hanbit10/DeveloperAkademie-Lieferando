@@ -40,8 +40,7 @@ function render() {
 }
 
 function getId(el) {
-  let element = document.getElementById(el);
-  return element;
+  return document.getElementById(el);
 }
 
 function getLocalStorageItems() {
@@ -126,8 +125,8 @@ function renderBaskets() {
     element3.classList.add("tablet-d-none");
     element.classList.add("tablet-d-none");
   } else {
-    element2.innerHTML += getTotalBasket(price.toFixed(2));
-    element3.innerHTML = getCalcBasket(price.toFixed(2));
+    element2.innerHTML += getTotalBasket(price);
+    element3.innerHTML = getCalcBasket(price);
     element.classList.remove("tablet-d-none");
     element3.classList.remove("tablet-d-none");
   }
@@ -145,8 +144,8 @@ function getEmptyBasket() {
 function getTotalBasket(price) {
   return /*html*/ `
   <div class="calc-total-item">
-    <div class="calc-total">Total price ${price} €</div> 
-    <div onclick="getCheckout()" class="calc-checkout">Checkout ${price} €</div>
+    <div class="calc-total">Total price ${price.toFixed(2)} €</div> 
+    <div onclick="getCheckout()" class="calc-checkout">Checkout ${price.toFixed(2)} €</div>
   </div> `;
 }
 
@@ -165,7 +164,7 @@ function getCalc(index, food, eachPrice) {
   <div class="calc-box">
     <div class="calc-food-item">
       <span class="calc-food"> ${basket["food"]} </span>
-      <span class="calc-price"> ${eachPrice} € </span>  
+      <span class="calc-price"> ${eachPrice.toFixed(2)} € </span>  
     </div>
     <div class="calc-amount">
       <div class="calc-btn" onclick='removeBasket("${food}")'>-</div>
@@ -178,7 +177,7 @@ function getCalc(index, food, eachPrice) {
 function getCalcBasket(price) {
   return /*html*/ `
   <div class="calc-total-item">
-    <div onclick="openBasket()" class="calc-basket-btn"> (${amount}) Basket ${price} €</div> 
+    <div onclick="openBasket()" class="calc-basket-btn"> (${amount}) Basket ${price.toFixed(2)} €</div> 
   </div> `;
 }
 
